@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TRANSLATE from './translation/hebrew';
 
 export default function AddressForm() {
 
@@ -23,13 +24,13 @@ export default function AddressForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'firstName', name: 'firstName', label: 'שם פרטי', isRequired: true }) }
+          { buildTextField({ id: 'firstName', name: 'firstName', label: TRANSLATE.FORM.FIRST_NAME, isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'lastName', name: 'lastName', label: 'שם משפחה', isRequired: true }) }
+          { buildTextField({ id: 'lastName', name: 'lastName', label: TRANSLATE.FORM.LAST_NAME, isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'email', name: 'email', label: 'אי מייל', isRequired: true }) }
+          { buildTextField({ id: 'email', name: 'email', label: TRANSLATE.FORM.EMAIL, isRequired: true }) }
           <TextField
             required
             id="email"

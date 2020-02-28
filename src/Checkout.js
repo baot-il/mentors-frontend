@@ -91,6 +91,37 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const navigationButtons = () => {
+    const isLastStep = activeStep === steps.length - 1;
+   return (<div className={classes.buttons}>
+     {activeStep !== 0 && (
+         <Button onClick={handleBack} className={classes.button}>
+           חזרה
+         </Button>
+     )}
+     <Button
+         variant="contained"
+         color="primary"
+         onClick={handleNext}
+         className={classes.button}>
+       { isLastStep ? "שליחה" : "הבא"}
+     </Button>
+   </div>);
+  };
+
+  const finalStep = () => {
+    return (<React.Fragment>
+      <Typography variant="h5" gutterBottom>
+        Thank you for your order.
+      </Typography>
+      <Typography variant="subtitle1">
+        Your order number is #2001539. We have emailed your order
+        confirmation, and will send you an update when your order has
+        shipped.
+      </Typography>
+    </React.Fragment>);
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -114,40 +145,17 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
+            {activeStep === steps.length ? (<React.Fragment>
+                { finalStep() }
+                </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Submit" : "Next"}
-                  </Button>
-                </div>
+                { navigationButtons() }
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </main>
     </React.Fragment>
   );
