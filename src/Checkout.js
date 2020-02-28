@@ -53,6 +53,9 @@ const useStyles = makeStyles(theme => ({
   stepper: {
     padding: theme.spacing(3, 0, 5)
   },
+  step: {
+    flexDirection: 'column',
+  },
   buttons: {
     display: "flex",
     justifyContent: "flex-end"
@@ -94,7 +97,7 @@ export default function Checkout() {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            BAOT
+            באות
           </Typography>
         </Toolbar>
       </AppBar>
@@ -106,7 +109,7 @@ export default function Checkout() {
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel className={classes.step}>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>

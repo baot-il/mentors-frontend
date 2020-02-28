@@ -6,6 +6,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 export default function AddressForm() {
+
+  const buildTextField = ({ id, name, label, isRequired }) => {
+    return (<TextField
+        required={ isRequired }
+        id={ id }
+        name={ name }
+        label={ label }
+        fullWidth/>);
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -13,26 +23,13 @@ export default function AddressForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="fname"
-          />
+          { buildTextField({ id: 'firstName', name: 'firstName', label: 'שם פרטי', isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="lname"
-          />
+          { buildTextField({ id: 'lastName', name: 'lastName', label: 'שם משפחה', isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
+          { buildTextField({ id: 'email', name: 'email', label: 'אי מייל', isRequired: true }) }
           <TextField
             required
             id="email"
