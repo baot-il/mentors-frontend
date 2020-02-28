@@ -31,77 +31,25 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           { buildTextField({ id: 'email', name: 'email', label: TRANSLATE.FORM.EMAIL, isRequired: true }) }
-          <TextField
-            required
-            id="email"
-            name="email"
-            label="Email"
-            fullWidth
-            autoComplete="email"
-          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="phoneNumber"
-            name="phoneNumber"
-            label="Phone Number"
-            fullWidth
-            autoComplete="phoneNumber"
-          />
+        { buildTextField({ id: 'phoneNumber', name: 'phoneNumber', label: TRANSLATE.FORM.PHONE_NUMBER, isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="workPlace"
-            name="workPlace"
-            label="Work Place"
-            fullWidth
-            autoComplete="workPlace"
-          />
+        { buildTextField({ id: 'workPlace', name: 'workPlace', label: TRANSLATE.FORM.WORK_PLACE, isRequired: true }) }
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField required id="title" name="title" label="Title" fullWidth />
+        { buildTextField({ id: 'title', name: 'title', label: TRANSLATE.FORM.TITLE, isRequired: true }) }
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="history"
-            name="history"
-            label="Professional History"
-            fullWidth
-            multiline
-            rows="6"
-          />
+        { buildTextField({ id: 'history', name: 'history', label: TRANSLATE.FORM.PROFESSIONAL_HISTORY, isRequired: true }) }
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="academic"
-            name="academic"
-           label="Academic Background"
-            fullWidth
-            multiline
-            rows="6"
-          />
+        { buildTextField({ id: 'academic', name: 'academic', label: TRANSLATE.FORM.ACADEMIC_BACKGROUND, isRequired: true }) }
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            id="searches"
-            name="searches"
-            label="Describe Your Previous Job Searches"
-            fullWidth
-            multiline
-            rows="6"
-          />
+        { buildTextField({ id: 'searches', name: 'searches', label: TRANSLATE.FORM.SEARCHES, isRequired: true }) }
         </Grid>
-        {/* <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-        </Grid> */}
       </Grid>
     </React.Fragment>
   );
