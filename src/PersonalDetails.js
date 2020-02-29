@@ -5,19 +5,30 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TRANSLATE from './translation/hebrew';
-import { fetchTechnologies } from './apis/technologies';
+import { fetchYearsExperience, fetchTechnologies } from './apis/technologies';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export default function AddressForm() {
   const [technologies, setTechnologies] = useState([]);
+  const [yearsExperience, setYearsExperience] = useState([]);
 
-  useEffect(() => {
-    fetchAllTechnologies();
-  },[]);
+    useEffect(() => {
+        fetchAllTechnologies();
+        fetchAllYearsOfExperience();
+    }, []);
 
-  async function fetchAllTechnologies(){
-    const allTechnologies = await fetchTechnologies();
-    setTechnologies(allTechnologies);
-  }
+    async function fetchAllTechnologies() {
+        const allTechnologies = await fetchTechnologies();
+        setTechnologies(allTechnologies);
+    }
+
+    async function fetchAllYearsOfExperience() {
+        const allTechnologies = await fetchYearsExperience();
+        setYearsExperience(allTechnologies);
+    }
 
   function buildTextField({ id, name, label, isRequired }){
     return (<TextField
@@ -30,9 +41,7 @@ export default function AddressForm() {
 
   function renderTechnologies(){
     return (<Grid item xs={12}>
-      <Typography component="h3">
         { TRANSLATE.FORM.RELEVANT_TAGS }
-      </Typography>
       <Grid container xs={12}>
         { technologies.map(item => <Grid item xs={12} sm={6}><FormControlLabel
             control={<Checkbox name="technolgies" value='false' />}
@@ -40,6 +49,17 @@ export default function AddressForm() {
         </Grid>)}
       </Grid>
     </Grid>);
+  }
+
+  function renderYearsOfExperience() {
+      return <Grid item xs={12} sm={6}>
+              <FormControl required fullWidth>
+                  <InputLabel>{ TRANSLATE.FORM.YEARS_OF_EXPERIENCE }</InputLabel>
+              <Select id="yearsOfExperience">
+                  { yearsExperience.map(item => <MenuItem value={item}>{item}</MenuItem>) }
+              </Select>
+              </FormControl>
+          </Grid>
   }
 
   return (
@@ -75,6 +95,7 @@ export default function AddressForm() {
         <Grid item xs={12}>
         { buildTextField({ id: 'jobSearch', name: 'jobSearch', label: TRANSLATE.FORM.JOB_SEARCH, isRequired: true }) }
         </Grid>
+          { renderYearsOfExperience() }
         { renderTechnologies() }
       </Grid>
     </React.Fragment>
