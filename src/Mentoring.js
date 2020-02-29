@@ -4,19 +4,18 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-
 import TRANSLATE from './translation/hebrew';
 
 export default function Mentoring() {
 
-  const buildTextField = ({ id, name, label, isRequired }) => {
+  function buildTextField({ id, name, label, isRequired }){
     return (<TextField
         required={ isRequired }
         id={ id }
         name={ name }
         label={ label }
         fullWidth/>);
-  };
+  }
 
   return (
     <React.Fragment>
@@ -28,22 +27,18 @@ export default function Mentoring() {
           { buildTextField({ id: 'availability', name: 'availability', label: TRANSLATE.FORM.AVAILABILITY, isRequired: true }) }
         </Grid>
         <Grid item xs={12}>
-          { buildTextField({ id: 'matching', name: 'matching', label: TRANSLATE.FORM.MATCHING, isRequired: true }) }
+          { buildTextField({ id: 'matchPreferences', name: 'matchPreferences', label: TRANSLATE.FORM.MATCH_PREFRENCES, isRequired: true }) }
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} alignContent='flex-start'>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="amount" value="yes" />}
-            label={TRANSLATE.FORM.AMOUNT}
-          />
-        </Grid>
-        <Grid item xs={12}>
+            control={<Checkbox name="isMultipleMentees" value="yes" />}
+            label={TRANSLATE.FORM.MULTIPLE_MENTEES}/>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="simulate" value="yes" />}
-            label={TRANSLATE.FORM.SIMULATIONS}
-          />
+            control={<Checkbox name="canSimulate" value="yes" />}
+            label={TRANSLATE.FORM.CAN_SIMULATE}/>
         </Grid>
         <Grid item xs={12}>
-          { buildTextField({ id: 'comments', name: 'comments', label: TRANSLATE.FORM.COMMENTS, isRequired: true }) }
+          { buildTextField({ id: 'comments', name: 'comments', label: TRANSLATE.FORM.COMMENTS }) }
         </Grid>
       </Grid>
     </React.Fragment>
