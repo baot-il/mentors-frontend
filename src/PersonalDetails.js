@@ -30,13 +30,15 @@ export default function AddressForm() {
         setYearsExperience(allTechnologies);
     }
 
-  function buildTextField({ id, name, label, isRequired }){
+  function buildTextField({ id, name, label, isRequired, isMultiline }){
     return (<TextField
         required={ isRequired }
         id={ id }
         name={ name }
         label={ label }
-        fullWidth/>);
+        fullWidth
+        multiline={ isMultiline }
+        rowsMax='7'/>);
   }
 
   function renderTechnologies(){
@@ -87,13 +89,13 @@ export default function AddressForm() {
         { buildTextField({ id: 'jobTitle', name: 'jobTitle', label: TRANSLATE.FORM.JOB_TITLE, isRequired: true }) }
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'bio', name: 'bio', label: TRANSLATE.FORM.BIO, isRequired: true }) }
+        { buildTextField({ id: 'bio', name: 'bio', label: TRANSLATE.FORM.BIO, isRequired: true, isMultiline: true }) }
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'academicBio', name: 'academicBio', label: TRANSLATE.FORM.ACADEMIC_BIO, isRequired: true }) }
+        { buildTextField({ id: 'academicBio', name: 'academicBio', label: TRANSLATE.FORM.ACADEMIC_BIO, isRequired: true, isMultiline: true }) }
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'jobSearch', name: 'jobSearch', label: TRANSLATE.FORM.JOB_SEARCH, isRequired: true }) }
+        { buildTextField({ id: 'jobSearch', name: 'jobSearch', label: TRANSLATE.FORM.JOB_SEARCH, isRequired: true, isMultiline: true }) }
         </Grid>
           { renderYearsOfExperience() }
         { renderTechnologies() }
