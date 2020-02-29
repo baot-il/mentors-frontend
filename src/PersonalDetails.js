@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import TextField from './TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TRANSLATE from './translation/hebrew';
@@ -10,6 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Field } from 'formik';
 
 export default function AddressForm() {
   const [technologies, setTechnologies] = useState([]);
@@ -29,17 +30,6 @@ export default function AddressForm() {
         const allTechnologies = await fetchYearsExperience();
         setYearsExperience(allTechnologies);
     }
-
-  function buildTextField({ id, name, label, isRequired, isMultiline }){
-    return (<TextField
-        required={ isRequired }
-        id={ id }
-        name={ name }
-        label={ label }
-        fullWidth
-        multiline={ isMultiline }
-        rowsMax='7'/>);
-  }
 
   function renderTechnologies(){
     return (<Grid item xs={12}>
@@ -71,31 +61,31 @@ export default function AddressForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'firstName', name: 'firstName', label: TRANSLATE.FORM.FIRST_NAME, isRequired: true }) }
+            <TextField name='firstName' label={ TRANSLATE.FORM.FIRST_NAME } isRequired/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'lastName', name: 'lastName', label: TRANSLATE.FORM.LAST_NAME, isRequired: true }) }
+            <TextField name='lastName' label={ TRANSLATE.FORM.LAST_NAME } isRequired/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          { buildTextField({ id: 'email', name: 'email', label: TRANSLATE.FORM.EMAIL, isRequired: true }) }
+            <TextField name='email' label={ TRANSLATE.FORM.EMAIL } isRequired/>
         </Grid>
         <Grid item xs={12} sm={6}>
-        { buildTextField({ id: 'phoneNumber', name: 'phoneNumber', label: TRANSLATE.FORM.PHONE_NUMBER, isRequired: true }) }
+            <TextField name='phoneNumber' label={ TRANSLATE.FORM.PHONE_NUMBER } isRequired/>
         </Grid>
         <Grid item xs={12} sm={6}>
-        { buildTextField({ id: 'workplace', name: 'workplace', label: TRANSLATE.FORM.WORKPLACE, isRequired: true }) }
+            <TextField name='workplace' label={ TRANSLATE.FORM.WORKPLACE } isRequired/>
         </Grid>
         <Grid item xs={12} sm={6}>
-        { buildTextField({ id: 'jobTitle', name: 'jobTitle', label: TRANSLATE.FORM.JOB_TITLE, isRequired: true }) }
+            <TextField name='jobTitle' label={ TRANSLATE.FORM.JOB_TITLE } isRequired/>
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'bio', name: 'bio', label: TRANSLATE.FORM.BIO, isRequired: true, isMultiline: true }) }
+            <TextField name='bio' label={ TRANSLATE.FORM.BIO } isRequired isMultiline/>
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'academicBio', name: 'academicBio', label: TRANSLATE.FORM.ACADEMIC_BIO, isRequired: true, isMultiline: true }) }
+            <TextField name='academicBio' label={ TRANSLATE.FORM.ACADEMIC_BIO } isRequired isMultiline/>
         </Grid>
         <Grid item xs={12}>
-        { buildTextField({ id: 'jobSearch', name: 'jobSearch', label: TRANSLATE.FORM.JOB_SEARCH, isRequired: true, isMultiline: true }) }
+            <TextField name='jobSearch' label={ TRANSLATE.FORM.JOB_SEARCH } isRequired isMultiline/>
         </Grid>
           { renderYearsOfExperience() }
         { renderTechnologies() }

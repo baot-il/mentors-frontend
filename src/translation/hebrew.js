@@ -1,4 +1,10 @@
 export default {
+    GENERAL: {
+        BAOT: 'באות',
+        NEXT: 'הבא',
+        BACK: 'חזרה',
+        SEND: 'שליחה',
+    },
     FORM: {
         FIRST_NAME: 'שם פרטי',
         LAST_NAME: 'שם משפחה',
