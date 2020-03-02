@@ -11,6 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import * as firebase from "firebase";
+import axios from "axios";
+import { ENV } from "./apis/constants";
+import { Redirect } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -50,6 +53,10 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [isSignUp, toggleSignUp] = useState(false);
+  const [userTypes, setuserTypes] = useState({
+    isManager: false,
+    isMentor: false
+  });
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -81,15 +88,32 @@ export default function SignIn() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    isSignUp ? handleSignUp() : handleSignIn();
+    isSignUp
+      ? handleSignUp().then(successfulAuth)
+      : handleSignIn().then(successfulAuth);
+  };
+
+  const successfulAuth = uid => {
+    setuserTypes({
+      isManager: false,
+      isMentor: true
+    });
+    // axios.get(`${ENV}/user/${uid}`).then(function(response) {
+    //   const { managerId, mentorId } = response.data;
+    //   setuserTypes({
+    //     isManager: managerId ? true : false,
+    //     isMentor: mentorId ? true : false
+    //   });
+    // });
   };
 
   const handleSignIn = () => {
-    firebase
+    return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(function(result) {
         console.log("signin result:", result);
+        return result.user.uid;
       })
       .catch(function(error) {
         console.log("signin error:", error);
@@ -113,11 +137,12 @@ export default function SignIn() {
       alert("Please enter a password.");
       return;
     }
-    firebase
+    return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(function(result) {
         console.log("signup result:", result);
+        return result.user.uid;
       })
       .catch(function(error) {
         console.log("signup error:", error);
@@ -151,78 +176,84 @@ export default function SignIn() {
       });
   };
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          {isSignUp ? "Sign up" : "Sign in"}
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            value={email}
-            onChange={onEmailChange}
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            value={password}
-            onChange={onPasswordChange}
-            label="Password"
-            type="password"
-            // id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSubmit}
-          >
+  if (userTypes.isManager) {
+    return <Redirect to="/manager" />;
+  } else if (userTypes.isMentor) {
+    return <Redirect to="/mentor" />;
+  } else {
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             {isSignUp ? "Sign up" : "Sign in"}
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2" onClick={sendPasswordReset}>
-                Forgot password?
-              </Link>
+          </Typography>
+          <form className={classes.form} noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              value={email}
+              onChange={onEmailChange}
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              value={password}
+              onChange={onPasswordChange}
+              label="Password"
+              type="password"
+              // id="password"
+              autoComplete="current-password"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={handleSubmit}
+            >
+              {isSignUp ? "Sign up" : "Sign in"}
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2" onClick={sendPasswordReset}>
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link
+                  href="#"
+                  variant="body2"
+                  onClick={() => {
+                    toggleSignUp(!isSignUp);
+                  }}
+                >
+                  {isSignUp
+                    ? "Already have an account? Sign in"
+                    : "Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link
-                href="#"
-                variant="body2"
-                onClick={() => {
-                  toggleSignUp(!isSignUp);
-                }}
-              >
-                {isSignUp
-                  ? "Already have an account? Sign in"
-                  : "Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+    );
+  }
 }

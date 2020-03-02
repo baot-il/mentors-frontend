@@ -11,6 +11,12 @@ import {
 } from "@material-ui/core/styles";
 import { theme } from "./MuiTheme";
 import * as firebase from "firebase/app";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -30,13 +36,42 @@ firebase.initializeApp(firebaseConfig);
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <StylesProvider jss={jss}>
-        <div className="App" dir="rtl">
-          <Login></Login>
-          {/* <Checkout /> */}
-        </div>
-      </StylesProvider>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <StylesProvider jss={jss}>
+          <div className="App" dir="rtl">
+            <Login></Login>
+          </div>
+        </StylesProvider>
+      </ThemeProvider>
+      <Switch>
+        <PrivateRoute path="/mentor">
+          <Checkout />
+        </PrivateRoute>
+        <PrivateRoute path="/manager">
+          <Checkout />
+        </PrivateRoute>
+      </Switch>
+    </Router>
+  );
+}
+
+function PrivateRoute({ children, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        firebase.auth().currentUser ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
   );
 }
