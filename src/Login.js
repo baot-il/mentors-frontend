@@ -59,8 +59,19 @@ export default function SignIn() {
   });
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        user.getIdToken().then(idToken => {
+          axios
+            .get(`${ENV}/user`, {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
+            })
+            .then(response => {
+              console.log(response);
+            });
+        });
         // User is signed in.
         // var displayName = user.displayName;
         // var email = user.email;
@@ -111,10 +122,6 @@ export default function SignIn() {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(function(result) {
-        console.log("signin result:", result);
-        return result.user.uid;
-      })
       .catch(function(error) {
         console.log("signin error:", error);
         var errorCode = error.code;
