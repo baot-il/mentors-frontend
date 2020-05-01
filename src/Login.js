@@ -12,7 +12,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import * as firebase from "firebase";
 import axios from "axios";
-import { ENV } from "./apis/constants";
 import { Redirect } from "react-router-dom";
 
 function Copyright() {
@@ -63,7 +62,7 @@ export default function SignIn() {
       if (user) {
         user.getIdToken().then(idToken => {
           axios
-            .get(`${ENV}/user`, {
+            .get(`${process.env.REACT_APP_ENV}/user`, {
               headers: {
                 Authorization: "Bearer " + idToken
               }
@@ -109,7 +108,7 @@ export default function SignIn() {
       isManager: false,
       isMentor: true
     });
-    // axios.get(`${ENV}/user/${uid}`).then(function(response) {
+    // axios.get(`${process.env.REACT_APP_ENV}/user/${uid}`).then(function(response) {
     //   const { managerId, mentorId } = response.data;
     //   setuserTypes({
     //     isManager: managerId ? true : false,
