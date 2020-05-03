@@ -11,7 +11,7 @@ export function fetchMentor(mentorId) {
 
 export function updateMentor(mentorId, mentorData) {
   return axios
-    .put(`${process.env.REACT_APP_ENV}/mentors/${mentorId}`)
+    .put(`${process.env.REACT_APP_ENV}/mentors/${mentorId}`, mentorData)
     .then(function(response) {
       const { mentors } = response.data;
       return mentors;

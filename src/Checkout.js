@@ -135,7 +135,7 @@ export default function Checkout() {
                     enableReinitialize
                     initialValues={ mentor }
                     onSubmit={(values) => {
-                      updateMentor(convertMentorToMentorApi(tempMentorId, values))
+                      updateMentor(tempMentorId, convertMentorToMentorApi(values))
                     }}>
                   {({ submitForm, isSubmitting }) => (
                       <Form>
