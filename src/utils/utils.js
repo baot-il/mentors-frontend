@@ -19,7 +19,8 @@ export function convertMentorToMentorApi(mentorData) {
     } = mentorData;
 
     const mentorForServer = {
-        full_name: `${firstName} ${lastName}`,
+        first_name: firstName,
+        last_name: lastName,
         email,
         phone: phoneNumber,
         workplace,
