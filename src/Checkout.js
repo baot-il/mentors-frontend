@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -53,12 +53,13 @@ export default function Checkout() {
 
   useEffect(() => {
     fetchMentorData();
-  }, []);
+  }, [])
 
   async function fetchMentorData() {
     const mentorData = await fetchMentor(tempMentorId);
     setMentor( convertMentorApiToMentor(mentorData));
   }
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);

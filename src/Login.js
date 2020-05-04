@@ -56,11 +56,13 @@ export default function SignIn() {
     isManager: false,
     isMentor: false
   });
+  const [idToken, setIdToken] = useState("");
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         user.getIdToken().then(idToken => {
+          setIdToken(idToken);
           axios
             .get(`${process.env.REACT_APP_ENV}/user`, {
               headers: {
@@ -108,19 +110,28 @@ export default function SignIn() {
       isManager: false,
       isMentor: true
     });
-    // axios.get(`${process.env.REACT_APP_ENV}/user/${uid}`).then(function(response) {
-    //   const { managerId, mentorId } = response.data;
-    //   setuserTypes({
-    //     isManager: managerId ? true : false,
-    //     isMentor: mentorId ? true : false
-    //   });
-    // });
+
+    axios.get(`${process.env.REACT_APP_ENV}/user`, {
+      headers: {
+        Authorization: "Bearer " + idToken
+      }
+    }).then(function(response) {
+
+      setuserTypes({
+        isManager: response.data.user.is_manager ? true : false,
+        isMentor: response.data.user.mentor_id ? true : false
+      });
+    });
   };
 
   const handleSignIn = () => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
+      .then(function(result) {
+        console.log("signin result:", result);
+        return result.user.uid;
+      })
       .catch(function(error) {
         console.log("signin error:", error);
         var errorCode = error.code;
@@ -261,5 +272,5 @@ export default function SignIn() {
         </Box>
       </Container>
     );
-  }
+  };
 }
