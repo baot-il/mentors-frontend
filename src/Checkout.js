@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,6 +16,8 @@ import { fetchMentor } from './apis/mentors';
 import { convertMentorApiToMentor, convertMentorToMentorApi } from './utils/utils';
 import { useStyles } from './Checkout.styles';
 import { updateMentor } from './apis/mentors';
+import * as firebase from "firebase";
+import axios from "axios";
 
 const tempMentorId = 1;
 const steps = ["פרטים אישיים", "זמינות למנטורינג"];
@@ -50,13 +52,26 @@ export default function Checkout() {
     canSimulate: false,
     comments: ''
   });
+  const [idToken, setIdToken] = useState('');
 
   useEffect(() => {
-    fetchMentorData();
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          user.getIdToken().then(token => {
+            setIdToken(token);
+          })
+        }
+      });
+
   }, []);
 
-  async function fetchMentorData() {
-    const mentorData = await fetchMentor(tempMentorId);
+  useEffect(() => {
+    if (idToken !== '') {
+      fetchMentorData(idToken);
+    }}, [idToken]);
+
+  async function fetchMentorData(idToken) {
+    const mentorData = await fetchMentor(tempMentorId, idToken);
     setMentor( convertMentorApiToMentor(mentorData));
   }
 
@@ -135,7 +150,7 @@ export default function Checkout() {
                     enableReinitialize
                     initialValues={ mentor }
                     onSubmit={(values) => {
-                      updateMentor(tempMentorId, convertMentorToMentorApi(values))
+                      updateMentor(tempMentorId, convertMentorToMentorApi(values), idToken)
                     }}>
                   {({ submitForm, isSubmitting }) => (
                       <Form>

@@ -1,17 +1,25 @@
 import axios from "axios";
 
-export function fetchTechnologies() {
+export function fetchTechnologies(idToken) {
+  console.log('idToken', 'idToken', idToken)
   return axios
-    .get(`${process.env.REACT_APP_ENV}/technologies`)
+    .get(`${process.env.REACT_APP_ENV}/technologies`, {
+      headers: {
+        Authorization: "Bearer " + idToken
+    }})
     .then(function(response) {
       const { technologies } = response.data;
       return technologies;
     });
 }
 
-export function fetchYearsExperience() {
+export function fetchYearsExperience(idToken) {
+  console.log('idToken', 'idToken', idToken)
   return axios
-    .get(`${process.env.REACT_APP_ENV}/years_experience`)
+    .get(`${process.env.REACT_APP_ENV}/years_experience`, {
+      headers: {
+        Authorization: "Bearer " + idToken
+    }})
     .then(function(response) {
       const { years_experience } = response.data;
       return years_experience;

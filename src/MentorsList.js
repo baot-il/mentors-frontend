@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -23,6 +23,8 @@ import EmailIcon from '@material-ui/icons/Email';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TRANSLATE from './translation/hebrew'
 import {fetchAllMentors} from './apis/mentors'
+import * as firebase from "firebase";
+import axios from "axios";
 
 function createData(id, first_name, last_name, email,
     phone, workplace, job_title, bio, academic_bio, job_search, availability,
@@ -229,7 +231,26 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [data, setData] = React.useState([]);
+  const [idToken, setIdToken] = useState('');
   console.log('start of data', data);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        user.getIdToken().then(token => {
+          setIdToken(token);
+        })
+      }
+    });
+
+  }, []);
+
+
+  useEffect(() => {
+    if (idToken !== '') {
+      handleGetData();
+    }
+  }, [idToken]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -280,16 +301,9 @@ export default function EnhancedTable() {
   };
 
   const handleGetData = async () => {
-    const rawData = await fetchAllMentors();    
-    console.log('rawData.mentors', rawData.mentors);
-    // const rows = rawData.mentors.map( row => createData(row));
-    console.log('rows', rawData.mentors);
+    const rawData = await fetchAllMentors(idToken);
     setData(rawData.mentors);
   };
-
-  useEffect(() => {
-    handleGetData();
-  }, []);
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
