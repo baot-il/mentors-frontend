@@ -16,6 +16,7 @@ import { fetchMentor } from './apis/mentors';
 import { convertMentorApiToMentor, convertMentorToMentorApi } from './utils/utils';
 import { useStyles } from './Checkout.styles';
 import { updateMentor } from './apis/mentors';
+import * as firebase from "firebase";
 
 const steps = ["פרטים אישיים", "זמינות למנטורינג"];
 
@@ -59,6 +60,13 @@ export default function Checkout() {
     setMentor( convertMentorApiToMentor(mentorData));
   }
 
+  async function logout() {
+    firebase.auth().signOut().then(function() {
+      console.log('logged out successfully');
+    }).catch(function(error) {
+      console.log('failed to logout', error)
+    });
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -119,7 +127,12 @@ export default function Checkout() {
       <CssBaseline />
       <AppBar position="absolute" color='primary' className={classes.appBar} >
         <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap className={classes.title}>
             { TRANSLATION.GENERAL.BAOT }
+          </Typography>
+          <Button onClick={logout} className={classes.appBarButton} color="inherit">
+              Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>

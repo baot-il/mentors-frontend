@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Checkout from "./Checkout";
 import MentorsList from "./MentorsList";
@@ -19,6 +19,7 @@ import {
   Redirect
 } from "react-router-dom";
 
+
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 const firebaseConfig = {
@@ -32,19 +33,29 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      console.log('firebase.auth().onAuthStateChanged(user):', user);
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    })
+  }, [])
+
+  if (!isLoggedIn) {
+    return (<Login></Login>)
+  }
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <StylesProvider jss={jss}>
-          <div className="App" dir="rtl">
-            <Login></Login>
-          </div>
-        </StylesProvider>
-      </ThemeProvider>
       <Switch>
         <PrivateRoute path="/mentor">
           <Checkout />
@@ -52,6 +63,9 @@ export default function App() {
         <PrivateRoute path="/manager">
           <MentorsList />
         </PrivateRoute>
+        <Route path="/">
+          <Login />
+        </Route>
       </Switch>
     </Router>
   );
