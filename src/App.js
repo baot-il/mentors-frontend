@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import Checkout from "./Checkout";
+import MentorsList from "./MentorsList";
 import Login from "./Login";
 import { create } from "jss";
 import rtl from "jss-rtl";
@@ -49,7 +50,7 @@ export default function App() {
           <Checkout />
         </PrivateRoute>
         <PrivateRoute path="/manager">
-          <Checkout />
+          <MentorsList />
         </PrivateRoute>
       </Switch>
     </Router>
