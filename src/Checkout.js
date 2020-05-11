@@ -17,7 +17,6 @@ import { convertMentorApiToMentor, convertMentorToMentorApi } from './utils/util
 import { useStyles } from './Checkout.styles';
 import { updateMentor } from './apis/mentors';
 
-const tempMentorId = 1;
 const steps = ["פרטים אישיים", "זמינות למנטורינג"];
 
 function getStepContent(step) {
@@ -56,7 +55,7 @@ export default function Checkout() {
   }, [])
 
   async function fetchMentorData() {
-    const mentorData = await fetchMentor(tempMentorId);
+    const mentorData = await fetchMentor(firebase.auth().currentUser.uid);
     setMentor( convertMentorApiToMentor(mentorData));
   }
 
@@ -136,7 +135,7 @@ export default function Checkout() {
                     enableReinitialize
                     initialValues={ mentor }
                     onSubmit={(values) => {
-                      updateMentor(tempMentorId, convertMentorToMentorApi(values))
+                      updateMentor(firebase.auth().currentUser.uid, convertMentorToMentorApi(values))
                     }}>
                   {({ submitForm, isSubmitting }) => (
                       <Form>
