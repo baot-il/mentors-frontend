@@ -22,7 +22,7 @@ import Switch from '@material-ui/core/Switch';
 import EmailIcon from '@material-ui/icons/Email';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TRANSLATE from './translation/hebrew'
-import {fetchAllMentors} from './apis/mentors'
+import {allMentorsRawData} from './apis/mentors'
 import * as firebase from "firebase";
 import axios from "axios";
 
@@ -287,7 +287,7 @@ export default function EnhancedTable() {
   };
 
   const handleGetData = async () => {
-    const rawData = await fetchAllMentors();
+    const rawData = await allMentorsRawData();
     setData(rawData.mentors);
   };
 

@@ -14,7 +14,7 @@ export async function retrieveIdToken() {
 export async function fetchMentor(userUid) {
   const idToken = await retrieveIdToken();
   const response = await axios
-    .get(`${process.env.REACT_APP_ENV}/mentors/${userUid}`, {
+    .get(`${process.env.REACT_APP_ENV}/mentor`, {
       headers: {
         Authorization: "Bearer " + idToken
       }
@@ -26,7 +26,7 @@ export async function fetchMentor(userUid) {
 export async function updateMentor(userUid, mentorData) {
   const idToken = await retrieveIdToken();
   const response = await axios
-    .put(`${process.env.REACT_APP_ENV}/mentors/${userUid}`, mentorData, {
+    .put(`${process.env.REACT_APP_ENV}/mentor`, mentorData, {
       headers: {
         Authorization: "Bearer " + idToken
       }
@@ -35,7 +35,7 @@ export async function updateMentor(userUid, mentorData) {
   return mentors;
 }
 
-export async function fetchAllMentors() {
+export async function allMentorsRawData() {
   const idToken = await retrieveIdToken();
   let response = await axios.get(`${process.env.REACT_APP_ENV}/mentors`, {
     headers: {
