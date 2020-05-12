@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,8 +16,8 @@ import { fetchMentor } from './apis/mentors';
 import { convertMentorApiToMentor, convertMentorToMentorApi } from './utils/utils';
 import { useStyles } from './Checkout.styles';
 import { updateMentor } from './apis/mentors';
+import * as firebase from "firebase";
 
-const tempMentorId = 1;
 const steps = ["פרטים אישיים", "זמינות למנטורינג"];
 
 function getStepContent(step) {
@@ -56,8 +56,16 @@ export default function Checkout() {
   }, []);
 
   async function fetchMentorData() {
-    const mentorData = await fetchMentor(tempMentorId);
+    const mentorData = await fetchMentor(firebase.auth().currentUser.uid);
     setMentor( convertMentorApiToMentor(mentorData));
+  }
+
+  async function logout() {
+    firebase.auth().signOut().then(function() {
+      console.log('logged out successfully');
+    }).catch(function(error) {
+      console.log('failed to logout', error)
+    });
   }
 
   const handleNext = () => {
@@ -119,7 +127,12 @@ export default function Checkout() {
       <CssBaseline />
       <AppBar position="absolute" color='primary' className={classes.appBar} >
         <Toolbar>
+          <Typography variant="h6" color="inherit" noWrap className={classes.title}>
             { TRANSLATION.GENERAL.BAOT }
+          </Typography>
+          <Button onClick={logout} className={classes.appBarButton} color="inherit">
+              Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
@@ -135,7 +148,7 @@ export default function Checkout() {
                     enableReinitialize
                     initialValues={ mentor }
                     onSubmit={(values) => {
-                      updateMentor(tempMentorId, convertMentorToMentorApi(values))
+                      updateMentor(firebase.auth().currentUser.uid, convertMentorToMentorApi(values))
                     }}>
                   {({ submitForm, isSubmitting }) => (
                       <Form>

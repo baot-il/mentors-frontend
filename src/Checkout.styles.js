@@ -4,6 +4,12 @@ export const useStyles = makeStyles(theme => ({
     appBar: {
         position: "relative",
     },
+    title: {
+        flexGrow: 1,
+    },
+    appBarButton: {
+        position: "relative",
+    },
     layout: {
         width: "auto",
         marginLeft: theme.spacing(2),
@@ -32,7 +38,7 @@ export const useStyles = makeStyles(theme => ({
     },
     buttons: {
         display: "flex",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
     },
     button: {
         marginTop: theme.spacing(3),

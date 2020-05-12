@@ -53,37 +53,41 @@ export default function SignIn() {
   const [password, setPassword] = useState();
   const [isSignUp, toggleSignUp] = useState(false);
   const [userTypes, setuserTypes] = useState({
-    isManager: false,
-    isMentor: false
+    isManager: null,
+    isMentor: null
   });
+  const [idToken, setIdToken] = useState("");
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        user.getIdToken().then(idToken => {
+        user.getIdToken().then(token => {
+          setIdToken(token);
           axios
             .get(`${process.env.REACT_APP_ENV}/user`, {
               headers: {
-                Authorization: "Bearer " + idToken
+                Authorization: "Bearer " + token
               }
             })
             .then(response => {
-              console.log(response);
+              if (response.data.user) {
+                setuserTypes({
+                  isManager: response.data.user.is_manager ? true : false,
+                  isMentor: response.data.user.mentor_id ? true : false
+                });
+              } else {
+                setuserTypes({
+                  isManager: false,
+                  isMentor: true
+                });
+              }
             });
         });
-        // User is signed in.
-        // var displayName = user.displayName;
-        // var email = user.email;
-        // var emailVerified = user.emailVerified;
-        // var photoURL = user.photoURL;
-        // var isAnonymous = user.isAnonymous;
-        // var uid = user.uid;
-        // var providerData = user.providerData;
-        // ...
-        console.log("user:", user);
       } else {
-        // User is signed out.
-        // ...
+        setuserTypes({
+          isManager: null,
+          isMentor: null,
+        });
       }
     });
   }, []);
@@ -99,28 +103,18 @@ export default function SignIn() {
   const handleSubmit = event => {
     event.preventDefault();
     isSignUp
-      ? handleSignUp().then(successfulAuth)
-      : handleSignIn().then(successfulAuth);
-  };
-
-  const successfulAuth = uid => {
-    setuserTypes({
-      isManager: false,
-      isMentor: true
-    });
-    // axios.get(`${process.env.REACT_APP_ENV}/user/${uid}`).then(function(response) {
-    //   const { managerId, mentorId } = response.data;
-    //   setuserTypes({
-    //     isManager: managerId ? true : false,
-    //     isMentor: mentorId ? true : false
-    //   });
-    // });
+      ? handleSignUp()
+      : handleSignIn();
   };
 
   const handleSignIn = () => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
+      .then(function(result) {
+        console.log("signin result:", result);
+        return result.user.uid;
+      })
       .catch(function(error) {
         console.log("signin error:", error);
         var errorCode = error.code;
@@ -134,7 +128,19 @@ export default function SignIn() {
       });
   };
 
-  const handleSignUp = () => {
+  async function createUser() {
+    const user = firebase.auth().currentUser;
+    const token = await user.getIdToken();
+    setIdToken(token);
+    axios
+      .post(`${process.env.REACT_APP_ENV}/user`, {}, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+  }
+
+  async function handleSignUp() {
     if (email.length < 4) {
       alert("Please enter an email address.");
       return;
@@ -143,11 +149,12 @@ export default function SignIn() {
       alert("Please enter a password.");
       return;
     }
-    return firebase
+    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(function(result) {
         console.log("signup result:", result);
+        createUser();
         return result.user.uid;
       })
       .catch(function(error) {
@@ -261,5 +268,5 @@ export default function SignIn() {
         </Box>
       </Container>
     );
-  }
+  };
 }
