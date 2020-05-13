@@ -107,6 +107,13 @@ export default function Checkout() {
     </React.Fragment>);
   }
 
+  function validateValues(values){
+    if (values.firstName && values.lastName && values.email && values.phoneNumber) {
+      return true;
+    }
+    return false;
+  }
+
   function renderStepper() {
     return (<React.Fragment>
       <Typography component="h1" variant="h4" align="center">
@@ -148,7 +155,11 @@ export default function Checkout() {
                     enableReinitialize
                     initialValues={ mentor }
                     onSubmit={(values) => {
-                      updateMentor(firebase.auth().currentUser.uid, convertMentorToMentorApi(values))
+                      if (!validateValues(values)) {
+                        alert("Some of the mandatory fields haven't been supplied.");
+                      } else {
+                        updateMentor(firebase.auth().currentUser.uid, convertMentorToMentorApi(values));
+                      }
                     }}>
                   {({ submitForm, isSubmitting }) => (
                       <Form>
