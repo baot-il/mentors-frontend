@@ -22,6 +22,9 @@
     "react-scripts": "3.0.1"
   },
   "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.4",
+    "prettier": "^2.0.5",
     "typescript": "3.3.3"
   },
   "scripts": {
@@ -35,5 +38,16 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,ts,jsx,tsx,json,css,yaml,yml}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
 }
