@@ -45,5 +45,5 @@ export default {
         TECHNOLOGIES: 'טכנולוגיות',
         ADMIN_COMMENTS: 'הערות',
         IS_MATCHED: 'משובצת',
-    }
+    },
 };

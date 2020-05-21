@@ -15,7 +15,7 @@ export function convertMentorToMentorApi(mentorData) {
         canSimulate,
         technologies,
         yearsOfExperience,
-        comments
+        comments,
     } = mentorData;
 
     const mentorForServer = {
@@ -60,7 +60,6 @@ export function convertMentorApiToMentor(mentorApi) {
         comments,
     } = mentorApi;
 
-
     return {
         firstName,
         lastName,
@@ -77,6 +76,6 @@ export function convertMentorApiToMentor(mentorApi) {
         canSimulate,
         technologies,
         yearsOfExperience,
-        comments
+        comments,
     };
 }
