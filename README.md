@@ -25,13 +25,7 @@ Currently you will need to work with a local backend. Please follow the instruct
 
 Once you have running local backend please add the following var:
 REACT_APP_ENV=http://localhost:5000
-
 IF YOU ARE WORKING WITH A PROD / STAGING env you should change the values. 
-```
-// PRODUCTION https://baot-mentors-prod.herokuapp.com
-// STAGING https://baot-mentors-stage.herokuapp.com
-// LOCALHOST localhost:5000
-```
 
 ### Project Setup
 * run ```npm install```
