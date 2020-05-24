@@ -6,7 +6,7 @@
  
 #### Config local firebase
  1. Create a project in firebase using this link (might take a few minutes) https://console.firebase.google.com/u/0/?pli=1
- 2. Go to Develop Tab -> Authentication and click on the et up sign-in method button
+ 2. Go to Develop Tab -> Authentication and click on the set up sign-in method button
  3. Edit Email/Password option and enable the first option, sign by email.
  4. Go to project settings -> Your Apps card -> select web app platform (</> icon)
  5. Choose a nice nickname, no need to check the checkbox and click on register button.
@@ -16,12 +16,8 @@
     ```
     REACT_APP_API_KEY=[REPLACE_WITH_YOUR_API_KEY]
     REACT_APP_AUTH_DOMAIN=[REPLACE_WITH_YOUR_AUTH_DOMAIN]
-    REACT_APP_DATABASE_URL=[REPLACE_WITH_YOUR_DATABASE_URL]
     REACT_APP_PROJECT_ID=[REPLACE_WITH_YOUR_PROJECT_ID]
-    REACT_APP_STORAGE_BUCKET=baot-mentors-47da5.appspot.com
-    REACT_APP_MESSAGING_SENDER_ID=571249890954
     REACT_APP_APP_ID=[REPLACE_WITH_YOUR_APP_ID]
-    REACT_APP_MEASUREMENT_ID=[REPLACE_WITH_MEASUREMENT_ID]
     ```
 
 ### Configuring API url
