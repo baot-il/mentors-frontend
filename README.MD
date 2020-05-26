@@ -1,5 +1,9 @@
 ## MENTORS-FRONTEND
 
+## pre-requisites
+1. node LTS v12 
+2. npm 
+
 ### Environment Setup
 #### Install dependencies 
  * npm install
