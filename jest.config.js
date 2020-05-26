@@ -3,7 +3,7 @@ module.exports = {
     testEnvironment: 'enzyme',
     verbose: true,
     testURL: 'http://localhost/',
-    testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+    testMatch: ['<rootDir>/**/?(*.)+(spec|test).(js|ts)?(x)'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     transformIgnorePatterns: ['<rootDir>/node_modules/(?!lodash-es/.*)'],
     snapshotSerializers: ['enzyme-to-json/serializer'],
