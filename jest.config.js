@@ -1,5 +1,5 @@
 module.exports = {
-    setupFilesAfterEnv: ['jest-enzyme', '<rootDir>/src/test/setupTests.js'],
+    setupFilesAfterEnv: ['jest-enzyme', '/test/setupTests.js'],
     testEnvironment: 'enzyme',
     verbose: true,
     testURL: 'http://localhost/',

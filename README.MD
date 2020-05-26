@@ -6,7 +6,7 @@
 
 ### Environment Setup
 #### Install dependencies 
- * npm install
+ * ```npm install``
  
 #### Config local firebase
  1. Create a project in firebase using this link (might take a few minutes) https://console.firebase.google.com/u/0/?pli=1
@@ -35,7 +35,7 @@ IF YOU ARE WORKING WITH A PROD / STAGING env you should change the values.
 * run ```npm install```
 
 ### Run Project
-* npm start 
+* ```npm start ```
 
 ## Test Project
   *  Jest as the test runner, assertion library, and mocking library
