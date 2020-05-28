@@ -1,7 +1,10 @@
 ## MENTORS-FRONTEND
 
-## pre-requisites
-1. node LTS v12 
+### Prerequisites
+
+What things you need to install the software and how to install them
+
+1. node LTS v12 : https://nodejs.org/en/
 2. npm 
 
 ### Environment Setup
@@ -37,9 +40,24 @@ IF YOU ARE WORKING WITH A PROD / STAGING env you should change the values.
 ### Run Project
 * ```npm start ```
 
-## Test Project
+## Running the tests
+
+Explain how to run the automated tests for this system
+
   *  Jest as the test runner, assertion library, and mocking library
   *  Enzyme to provide additional testing utilities to interact with elements
   
 How to run?
 ```npm run test```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Contributing
+
+Please read our on boarding document (https://docs.google.com/document/d/1RpCbc5-8Jxa6qyOzloDjk6sFXOhcED9ZQU8eVssbtHA/edit) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
