@@ -22,16 +22,24 @@
     "react-scripts": "3.0.1"
   },
   "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-xo": "^0.31.0",
+    "eslint-config-xo-react": "^0.23.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.4",
     "prettier": "^2.0.5",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3",
+    "yaml-lint": "^1.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "lint": "yamllint '**/*.{yaml,yml}' && eslint . --fix '**/*.{js,ts,jsx,tsx,css,json}'",
     "format": "prettier --write '**/*.{js,ts,jsx,tsx,css,json,yaml,yml}'"
   },
   "browserslist": [
@@ -46,8 +54,17 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,ts,jsx,tsx,json,css,yaml,yml}": [
+    "*.{css,json}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --no-ignore --max-warnings 0",
+      "git add"
+    ],
+    "*.{yaml,yml}": [
+      "prettier --write",
+      "yamllint",
       "git add"
     ]
   }

@@ -1,0 +1,9 @@
+{
+    "schema": "DEFAULT_SAFE_SCHEMA",
+    "ignore": [
+        ".git/**",
+        ".idea/**",
+        "**/node_modules/**",
+        "**/dist/**"
+    ]
+  }
