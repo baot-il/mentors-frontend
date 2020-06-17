@@ -7,6 +7,9 @@
     "starter"
   ],
   "main": "src/index.js",
+  "peerDependencies": {
+    "eslint": "*"
+  },
   "dependencies": {
     "@material-ui/core": "4.9.4",
     "@material-ui/icons": "^4.9.1",
@@ -19,10 +22,9 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
-    "eslint": "^7.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-xo": "^0.31.0",
     "eslint-config-xo-react": "^0.23.0",
