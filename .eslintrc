@@ -5,23 +5,17 @@
     },
     "extends": [
         "eslint:recommended",
+        "react-app",
         "plugin:react/recommended",
-        "plugin:prettier/recommended",
-        "prettier/react",
         "xo",
-        "xo-react"
+        "xo-react",
+        "plugin:prettier/recommended",
+        "prettier/react"
     ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 11,
         "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "prettier/prettier": "error"
     }
 }
