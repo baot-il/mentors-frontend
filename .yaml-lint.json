@@ -2,8 +2,11 @@
     "schema": "DEFAULT_SAFE_SCHEMA",
     "ignore": [
         ".git/**",
+        ".vscode/**",
         ".idea/**",
         "**/node_modules/**",
-        "**/dist/**"
+        "**/dist/**",
+        "**/build/**",
+        "**/coverage/**"
     ]
-  }
+}

@@ -1,4 +1,9 @@
 node_modules
-dist
 package.json
 package-lock.json
+coverage
+dist
+build
+
+.vscode/**
+.idea/**
