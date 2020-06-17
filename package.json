@@ -41,7 +41,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "yamllint '**/*.{yaml,yml}' && eslint . --fix '**/*.{js,ts,jsx,tsx,css,json}'",
     "format": "prettier --write '**/*.{js,ts,jsx,tsx,css,json,yaml,yml}'"
   },
   "browserslist": [
