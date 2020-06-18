@@ -7,6 +7,9 @@
     "starter"
   ],
   "main": "src/index.js",
+  "peerDependencies": {
+    "eslint": "*"
+  },
   "dependencies": {
     "@material-ui/core": "4.9.4",
     "@material-ui/icons": "^4.9.1",
@@ -14,18 +17,23 @@
     "formik": "^2.1.4",
     "formik-material-ui": "^2.0.0-beta.1",
     "firebase": "^7.9.3",
-    "jss-rtl": "^0.3.0",
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-xo": "^0.31.0",
+    "eslint-config-xo-react": "^0.23.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.4",
     "prettier": "^2.0.5",
-    "typescript": "3.3.3"
+    "typescript": "3.3.3",
+    "yaml-lint": "^1.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -46,8 +54,18 @@
     }
   },
   "lint-staged": {
-    "**/*.{js,ts,jsx,tsx,json,css,yaml,yml}": [
+    "*.{css,json}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --no-ignore --max-warnings 0",
+      "git add"
+    ],
+    "*.{yaml,yml}": [
+      "prettier --write",
+      "yamllint",
       "git add"
     ]
   }

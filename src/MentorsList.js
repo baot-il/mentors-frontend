@@ -1,5 +1,5 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import {lighten, makeStyles} from '@material-ui/core/styles';
@@ -23,51 +23,6 @@ import EmailIcon from '@material-ui/icons/Email';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import TRANSLATE from './translation/hebrew';
 import {allMentorsRawData} from './apis/mentors';
-import * as firebase from 'firebase';
-import axios from 'axios';
-
-function createData(
-    id,
-    first_name,
-    last_name,
-    email,
-    phone,
-    workplace,
-    job_title,
-    bio,
-    academic_bio,
-    job_search,
-    availability,
-    match_preferences,
-    multiple_mentees,
-    can_simulate,
-    comments,
-    years_experience,
-) {
-    return {
-        id,
-        first_name,
-        last_name,
-        email,
-        phone,
-        workplace,
-        job_title,
-        bio,
-        academic_bio,
-        job_search,
-        availability,
-        match_preferences,
-        multiple_mentees,
-        can_simulate,
-        comments,
-        years_experience,
-    };
-}
-
-// const rows = [
-//   createData('1', 'דפי', 'רוז', 'a@a', '111', 'work', 'תפקיד', 'ביו', 'אקדמי', 'חיפוש',
-//              'זמינות', 'התאמה', 'הרבה', 'סימולציות', 'הערות', 'שנים'),
-// ];
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {

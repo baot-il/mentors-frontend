@@ -5,7 +5,9 @@ tabWidth: 4
 bracketSpacing: false
 
 overrides:
-  - files:
-      - '**/*.{yaml,yml}'
+  - files: '**/*.{yaml,yml}'
     options:
       tabWidth: 2
+  - files: '**/*.json'
+    options:
+      printWidth: 88
