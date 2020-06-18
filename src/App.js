@@ -3,15 +3,9 @@ import './styles.css';
 import Checkout from './Checkout';
 import MentorsList from './MentorsList';
 import Login from './Login';
-import {create} from 'jss';
-import rtl from 'jss-rtl';
-import {ThemeProvider, StylesProvider, jssPreset} from '@material-ui/core/styles';
-import {theme} from './MuiTheme';
 import * as firebase from 'firebase/app';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-// Configure JSS
-const jss = create({plugins: [...jssPreset().plugins, rtl()]});
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,

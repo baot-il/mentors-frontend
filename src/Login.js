@@ -56,7 +56,7 @@ export default function SignIn() {
         isManager: null,
         isMentor: null,
     });
-    const [idToken, setIdToken] = useState('');
+    const [, setIdToken] = useState('');
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
